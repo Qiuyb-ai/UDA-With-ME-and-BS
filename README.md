@@ -3,7 +3,7 @@
 Official implementation of paper: "Unsupervised Domain Adaptation Semantic Segmentation of Remote Sensing Images With Mask Enhancement and Balanced Sampling"
 ## Environment Setup
 
-This project's runtime environment is based on [MIC](https://github.com/lhoyer/MIC) and [PFST](https://github.com/zhu-xlab/PFST)
+This project's runtime environment is based on [MIC](https://github.com/lhoyer/MIC) and [PFST](https://github.com/zhu-xlab/PFST).
 
 First, please install cuda version 11.0.3 available at [https://developer.nvidia.com/cuda-11-0-3-download-archive](https://developer.nvidia.com/cuda-11-0-3-download-archive). It is required to build mmcv-full later.
 
@@ -40,7 +40,7 @@ python run_experiments.py --config configs/uda/pots_irrg2vaih_irrg_1024_b4_15_85
 
 **Potsdam IRRG to Vaihingen IRRG**
 
-A sample checkpoint for Potsdam IRRG to Vaihingen IRRG setting is provided at:
+A sample checkpoint for Potsdam IRRG to Vaihingen IRRG setting is provided at:[https://drive.google.com/file/d/1BJMBecOMO7vOjbmjogm37nmoV8liwC32/view?usp=sharing](https://drive.google.com/file/d/1BJMBecOMO7vOjbmjogm37nmoV8liwC32/view?usp=sharing)
 
 ```shell
 python test.py checkpoint/pots_irrg2vaih_irrg_1024_b4_15_85.py checkpoint/iter_40000.pth --eval mIoU
