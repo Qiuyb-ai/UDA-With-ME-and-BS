@@ -25,11 +25,7 @@ source_pipeline = [
 
 target_pipeline = [
     dict(type='LoadImageFromFile'),
-    dict(type='LoadAnnotationsPseudoLabelsV2',
-         pseudo_labels_dir=None,
-         reduce_zero_label=False,
-         load_feats=False,
-         pseudo_ratio=0.0),
+    dict(type='LoadAnnotations', reduce_zero_label=True),
     dict(type='Resize', img_scale=(1024, 1024), ratio_range=(0.5, 2.0)),
     dict(type='RandomCrop', crop_size=crop_size, cat_max_ratio=0.75),
     dict(type='RandomRotate90', prob=1.0),
@@ -59,8 +55,8 @@ test_pipeline = [
 ]
 
 dataset_type = 'ISPRSDataset'
-data_root_pots = '../../../data/potsdam_1024_irrg'
-data_root_vaih = '../../../data/vaihingen_1024_irrg'
+data_root_pots = '../data/potsdam_1024_irrg'
+data_root_vaih = '../data/vaihingen_1024_irrg'
 gt_seg_map_loader_cfg=dict(reduce_zero_label=True)
 data = dict(
     samples_per_gpu=2,
@@ -85,8 +81,8 @@ data = dict(
     val=dict(
         type=dataset_type,
         data_root=data_root_vaih,
-        img_dir='img_dir/train',
-        ann_dir='ann_dir/train',
+        img_dir='img_dir/val',
+        ann_dir='ann_dir/val',
         gt_seg_map_loader_cfg=gt_seg_map_loader_cfg,
         pipeline=test_pipeline),
     test=dict(
