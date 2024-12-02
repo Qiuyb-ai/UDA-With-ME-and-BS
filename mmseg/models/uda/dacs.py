@@ -101,7 +101,7 @@ class DACS(UDADecorator):
             self.imnet_model = None
             
         self.masked_mix_train = cfg['masked_mix_train']
-        self.original_mix = cfg['original_mix']
+        self.original_masked = cfg['original_masked']
         self.mix_train = cfg['mix_train']
 
     def get_ema_model(self):
@@ -443,7 +443,7 @@ class DACS(UDADecorator):
                 masked_loss, masked_log_vars = self._parse_losses(masked_loss)
                 log_vars.update(masked_log_vars)
                 masked_loss.backward()
-            if self.original_mix:
+            if self.original_masked:
                 masked_loss = self.mic(self.get_model(), img, img_metas,
                                        gt_semantic_seg, target_img,
                                        target_img_metas, valid_pseudo_mask,
