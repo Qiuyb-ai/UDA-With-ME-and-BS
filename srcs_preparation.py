@@ -66,7 +66,7 @@ def save_class_stats(out_dir, json_file_path,ample_class_stats = None):
     samples_with_class = {}
     for file, stats in sample_class_stats_dict.items():
         for c, n in stats.items():
-            if n > 512 * 512 * 0.15 and n < 512 * 512 * 0.85:
+            if n > 1024 * 1024 * 0.15 and n < 1024 * 1024 * 0.85:
                 if c not in samples_with_class:
                     samples_with_class[c] = [(file, n)]
                 else:
@@ -74,4 +74,4 @@ def save_class_stats(out_dir, json_file_path,ample_class_stats = None):
     with open(osp.join(out_dir, 'samples_with_class_15_85.json'), 'w') as of:
         json.dump(samples_with_class, of, indent=2)
         
-save_class_stats(r"data/potsdam_1024_irrg",'./label_stats.json')
+save_class_stats(r"../data/potsdam_1024_irrg",'./label_stats.json')
