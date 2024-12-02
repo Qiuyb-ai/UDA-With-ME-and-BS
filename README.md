@@ -12,7 +12,7 @@ environment:
 
 ```shell
 pip install -r requirements.txt -f https://download.pytorch.org/whl/torch_stable.html
-pip install mmcv-full==1.3.7  # requires the other packages to be installed first
+pip install mmcv-full==1.6.0  # requires the other packages to be installed first
 ```
 
 Please, download the MiT-B4 ImageNet weights provided by [SegFormer](https://github.com/NVlabs/SegFormer?tab=readme-ov-file#training)
@@ -25,8 +25,8 @@ from their [OneDrive](https://connecthkuhk-my.sharepoint.com/:f:/g/personal/xiee
 Download the datasets at https://www.isprs.org/education/benchmarks/UrbanSemLab/2d-sem-label-potsdam.aspx and https://www.isprs.org/education/benchmarks/UrbanSemLab/2d-sem-label-vaihingen.aspx
 
 ```shell
-python tools/convert_datasets/potsdam.py /path/to/your_datasets/Potsdam --tmp_dir ./ --out_dir /path/to/datasets/Potsdam_IRRG_1024
-python tools/convert_datasets/vaihingen.py /path/to/your_datasets/Vaihingen --tmp_dir ./ --out_dir /path/to/datasets/Vaihingen_IRRG
+python tools/convert_datasets/potsdam.py /path/to/your_datasets/Potsdam --tmp_dir ./ --out_dir /path/to/datasets/potsdam_1024_irrg
+python tools/convert_datasets/vaihingen.py /path/to/your_datasets/Vaihingen --tmp_dir ./ --out_dir /path/to/datasets/vaihingen_1024_irrg
 ```
 **SRCS Preparation:** 
 
