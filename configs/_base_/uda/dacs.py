@@ -27,5 +27,8 @@ uda = dict(
     mask_generator=None,
     debug_img_interval=1000,
     print_grad_magnitude=False,
+    mix_train=True,
+    masked_mix_train=False,
+    original_masked=False,
 )
 use_ddp_wrapper = True
