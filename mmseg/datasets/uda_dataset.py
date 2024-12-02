@@ -53,11 +53,6 @@ def get_crop_bbox(img_size, crop_size):
 
     return crop_y1, crop_y2, crop_x1, crop_x2
 
-def get_min_max(data_root, lower_quantile, upper_quantile):
-    filename = f'nquantiles_per_class{lower_quantile}_{upper_quantile}.json'
-    with open(osp.join(data_root, filename), 'r') as of:
-        min_max = json.load(of)
-    return min_max
 @DATASETS.register_module()
 class UDADataset(object):
 
@@ -91,21 +86,11 @@ class UDADataset(object):
                 for item in samples_with_class_and_n:
                     if all(item.get(str(c), 0) < upper_quantile_value for c in range(6)):
                         filtered_samples.append(item)
-
-            min_max = get_min_max(cfg['source']['data_root'],self.lower_quantile,self.upper_quantile)
-
+                        
+            
             self.samples_with_class = {}
-
-            for c in self.rcs_classes:
-                self.samples_with_class[c] = []
-                
-            for item in filtered_samples:
-                for c in self.rcs_classes:
-                    if str(c) in item:
-                        pixels = item[str(c)]
-                        if pixels > min_max[str(c)]['Q1']:
-                            self.samples_with_class[c].append(item['file'].split('/')[-1])
-                assert len(self.samples_with_class[c]) > 0    
+            with open(osp.join(cfg['source']['data_root'], f"filtered_label_stats_{self.lower_quantile}.json"), 'r') as of:
+                self.samples_with_class = json.load(of)
                                     
             mmcv.print_log(f'RCS Classes: {self.rcs_classes}', 'mmseg')
             mmcv.print_log(f'RCS ClassProb: {self.rcs_classprob}', 'mmseg')
@@ -133,7 +118,8 @@ class UDADataset(object):
 
     def get_rare_class_sample(self):
         c = np.random.choice(self.rcs_classes, p=self.rcs_classprob)
-        f1 = np.random.choice(self.samples_with_class[c])
+        f1 = np.random.choice(self.samples_with_class[str(c)])
+
         i1 = self.file_to_idx[f1]
         s1 = self.source[i1]
         n_class = torch.sum(s1['gt_semantic_seg'].data == c)
